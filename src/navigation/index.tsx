@@ -5,12 +5,20 @@ import HomeScreen from '../screens/HomeScreen';
 import TasksScreen from '../screens/TasksScreen';
 import ListScreen from '../screens/ListScreen';
 
+
+export type RootStackParams = {
+  Home: undefined;
+  Tasks: undefined;
+  List: undefined;
+};
 const Stack = createStackNavigator();
 
 const Navigation = () => {
+
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Tasks" component={TasksScreen} />
         <Stack.Screen name="List" component={ListScreen} />
