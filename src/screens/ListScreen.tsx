@@ -5,7 +5,7 @@ import axios from 'axios';
 interface ListItem {
   id: string;
   name: string;
-  image: string;
+  avatar: string;
 }
 
 const ListScreen = () => {
@@ -28,6 +28,17 @@ const ListScreen = () => {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
+  // plus para corregir la url de la imagen
+  const fixUrl = (url: string) => {
+    if (url.includes('https://cloudflare-ipfs.com/ipfs')) {
+      return url.replace('https://cloudflare-ipfs.com/ipfs', 'https://ipfs.io/ipfs');
+    } else {
+      const randomId = Math.floor(Math.random() * 1000);
+      return `https://ipfs.io/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/${randomId}.jpg`;
+    }
+    return url;
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -35,8 +46,8 @@ const ListScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.listItem}>
+            <Image source={{ uri: fixUrl(item.avatar) }} style={styles.listItemImage} />
             <Text style={styles.listItemText}>{item.name}</Text>
-            <Image source={{ uri: item.image }} style={styles.listItemImage} />
           </View>
         )}
       />
@@ -54,10 +65,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#ccc',
   },
   listItemText: {
     flex: 1,
+    marginLeft: '5%',
   },
   listItemImage: {
     width: 50,
