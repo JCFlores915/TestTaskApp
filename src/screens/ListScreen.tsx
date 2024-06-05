@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation';
+type ListScreenNavigationProp = StackNavigationProp<RootStackParams, 'List'>;
 
 interface ListItem {
   id: string;
@@ -9,6 +13,7 @@ interface ListItem {
 }
 
 const ListScreen = () => {
+  const navigation = useNavigation<ListScreenNavigationProp>();
   const [data, setData] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,6 +46,10 @@ const ListScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.buttonHome} onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.textButton}>Home</Text>
+      </TouchableOpacity>
+
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
@@ -78,6 +87,19 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  buttonHome: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: 'orange',
+    borderRadius: 5,
+    width: '100%',
+    alignItems: 'center',
+  },
+  textButton: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
