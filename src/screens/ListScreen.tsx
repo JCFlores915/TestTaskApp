@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
-import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../navigation';
+import { RootStackParams } from '../interfaces/navigateInterface';
+import { ListItem } from '../interfaces/listInterface';
+import getElements from '../api/api';
+import { fixUrl } from '../utils/validations';
 type ListScreenNavigationProp = StackNavigationProp<RootStackParams, 'List'>;
-
-interface ListItem {
-  id: string;
-  name: string;
-  avatar: string;
-}
 
 const ListScreen = () => {
   const navigation = useNavigation<ListScreenNavigationProp>();
@@ -18,9 +14,9 @@ const ListScreen = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://6172cfe5110a740017222e2b.mockapi.io/elements')
+    getElements()
       .then((response) => {
-        setData(response.data);
+        setData(response);
         setLoading(false);
       })
       .catch((error) => {
@@ -31,17 +27,6 @@ const ListScreen = () => {
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
-  }
-
-  // plus para corregir la url de la imagen
-  const fixUrl = (url: string) => {
-    if (url.includes('https://cloudflare-ipfs.com/ipfs')) {
-      return url.replace('https://cloudflare-ipfs.com/ipfs', 'https://ipfs.io/ipfs');
-    } else {
-      const randomId = Math.floor(Math.random() * 1000);
-      return `https://ipfs.io/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/${randomId}.jpg`;
-    }
-    return url;
   }
 
   return (

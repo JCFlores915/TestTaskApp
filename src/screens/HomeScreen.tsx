@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../navigation';
+import { RootStackParams } from '../interfaces/navigateInterface';
 
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParams, 'Home'>;

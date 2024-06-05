@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
 import { addTask } from '../redux/tasksSlice';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../navigation';
+import { RootStackParams } from '../interfaces/navigateInterface';
 import { useNavigation } from '@react-navigation/native';
 
 type TaskScreenNavigationProp = StackNavigationProp<RootStackParams, 'Tasks'>;

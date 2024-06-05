@@ -6,11 +6,6 @@ import TasksScreen from '../screens/TasksScreen';
 import ListScreen from '../screens/ListScreen';
 
 
-export type RootStackParams = {
-  Home: undefined;
-  Tasks: undefined;
-  List: undefined;
-};
 const Stack = createStackNavigator();
 
 const Navigation = () => {
